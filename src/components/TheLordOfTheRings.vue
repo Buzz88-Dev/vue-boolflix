@@ -1,16 +1,19 @@
 <template>
   <div>
-    <h1>{{ msg }}</h1>
-
+    <div class="card">    											
+        <h3>{{ itemLordOfTheRings.original_title }}</h3>
+  	</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'TheLordOfTheRings',
+
   props: {
-    msg: String
+      itemLordOfTheRings: Object
   }
+
 }
 </script>
 
