@@ -4,37 +4,38 @@
       <SearchInput @mySearch="searchMovie"/>
     </div>
     <div class="movies_list">
-        <TheLordOfTheRings v-for="(film, index) in filteredDetailsMovies" :key="index" :itemLordOfTheRings="film" />
+        <StarWars v-for="(film, index) in filteredDetailsStarWars" :key="index" :itemStarWars="film" />
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import TheLordOfTheRings from './TheLordOfTheRings.vue';
+import StarWars from './StarWars.vue';
 import SearchInput from './SearchInput.vue';
 
 export default {
   name: 'MoviesFilm',
 
   components: {
-    TheLordOfTheRings,
+    StarWars,
     SearchInput,
   },
   
   data(){
       return {
-          apiUrlTheLordOfTheRings: "https://api.themoviedb.org/3/search/movie?api_key=4f0618c8f1e9a235de03917262238b33&query=il+signore+degli+anelli",
-          detailsTheLordOfTheRings: [],
+          apiUrlStarWars: "https://api.themoviedb.org/3/search/movie?api_key=4f0618c8f1e9a235de03917262238b33&query=star+wars",
+          detailsStarWars: [],
           userText: "",
       }
   },
 
   created(){
-    axios.get(this.apiUrlTheLordOfTheRings)
+    axios.get(this.apiUrlStarWars)
     .then(result => {
-        this.detailsTheLordOfTheRings = result.data.results;
-        console.log(this.detailsTheLordOfTheRings);    
+        this.detailsStarWars = result.data.results;
+        console.log(this.detailsStarWars);  
+        console.log(result.data);  
     }).catch(error => {
         console.log("Error", error);
     })
@@ -48,11 +49,11 @@ export default {
   },
 
   computed: {
-    filteredDetailsMovies (){
+    filteredDetailsStarWars (){
       if (this.userText === ""){
-        return this.detailsTheLordOfTheRings
+        return this.detailsStarWars
       } else {
-        return this.detailsTheLordOfTheRings.filter(item => {
+        return this.detailsStarWars.filter(item => {
         return item.original_title.toLowerCase().includes(this.userText.toLowerCase())
       })
       }

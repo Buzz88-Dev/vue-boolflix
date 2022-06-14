@@ -1,11 +1,11 @@
 <template>
   <div class="card"> 
-    <!-- <img :src="itemLordOfTheRings.poster_path" :alt="itemLordOfTheRings.original_title"> -->
+    <img :src="itemStarWars.poster_path" :alt="itemStarWars.original_title">
     <div class="text">
-      <h3>Titolo Originale: {{ itemLordOfTheRings.original_title }}</h3>
-      <h3>Titolo: {{ itemLordOfTheRings.title }}</h3>
-      <h3>Voto: {{itemLordOfTheRings.vote_average}}</h3>
-      <h3>Lingua originale: {{itemLordOfTheRings.original_language}}</h3>
+      <h3>Titolo Originale: {{ itemStarWars.original_title }}</h3>
+      <h3>Titolo: {{ itemStarWars.title }}</h3>
+      <h3>Voto: {{itemStarWars.vote_average}}</h3>
+      <h3>Lingua originale: {{itemStarWars.original_language}}</h3>
       <!-- <p>{{itemLordOfTheRings.overview}}</p> -->
     </div> 											
   </div>
@@ -13,10 +13,10 @@
 
 <script>
 export default {
-  name: 'TheLordOfTheRings',
+  name: 'StarWars',
 
   props: {
-      itemLordOfTheRings: Object
+      itemStarWars: Object
   }
 
 }
