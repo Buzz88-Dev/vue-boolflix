@@ -1,13 +1,13 @@
 <template>
   <div class="card"> 
-    <img :src="pathimmagineFilm + itemFilm.poster_path" :alt="itemFilm.original_title">
+    <img :src="pathimmagineFilm + itemSerieTV.poster_path" :alt="itemSerieTV.original_title">
     <div class="text">
-      <h3>Titolo Originale: {{ itemFilm.original_title }}</h3>
-      <h3>Titolo: {{ itemFilm.title }}</h3>
-      <h3>Voto: {{itemFilm.vote_average}}</h3>
+      <h3>Titolo Originale: {{ itemSerieTV.original_title }}</h3>
+      <h3>Titolo: {{ itemSerieTV.title }}</h3>
+      <h3>Voto: {{itemSerieTV.vote_average}}</h3>
       <div class="language">
-          <h3>Lingua originale: {{itemFilm.original_language}}</h3>
-          <img :src="flags(this.itemFilm.original_language)">
+          <h3>Lingua originale: {{itemSerieTV.original_language}}</h3>
+          <img :src="flags(this.itemSerieTV.original_language)">
       </div>
     </div> 											
   </div>
@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: 'CardFilm',
+  name: 'CardSerieTv',
 
   data() {
     return {
@@ -24,12 +24,12 @@ export default {
   },
 
   props: {
-      itemFilm: Object
+      itemSerieTV: Object
   },
 
   methods: {
     flags(lingua){
-      if (lingua === "es" || lingua === "it" || lingua === "es" || lingua === "fr" || lingua === "en" || lingua === "ja") {
+      if (lingua === "es" || lingua === "it" || lingua === "es" || lingua === "en" || lingua === "ja") {
         return require('../assets/flag/' + lingua + ".png")
       } else {
         return require('../assets/flag/vuota.png')
