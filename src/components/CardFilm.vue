@@ -6,11 +6,11 @@
       <h3>Titolo Originale: {{ itemFilm.original_title }}</h3>
       <h3>Titolo: {{ itemFilm.title }}</h3>
       <h3>Voto: {{itemFilm.vote_average}}</h3>
-      <h3>Voto: {{vote(this.itemFilm.vote_average)}}</h3>
+      <!-- <h3>Voto: {{vote(this.itemFilm.vote_average)}}</h3> -->
       <span >
-            <!-- <font-awesome-icon v-for="(element, i) in vote()" :key="i+'n'" icon="fa-solid fa-star"/> -->
-            <font-awesome-icon icon="far fa-star"/>
-            <font-awesome-icon icon="fa-solid fa-user-secret" />
+            <font-awesome-icon v-for="(element, i) in vote()" :key="i + 'y'" icon="fa-solid fa-star" />
+            <font-awesome-icon v-for="(element, index) in noVote()" :key="index + 'x'" icon="far fa-star" />
+            <!-- per evitare errori nella console aggiungo una stringa alla key -->
       </span>
       <div class="language">
           <h3>Lingua originale: {{itemFilm.original_language}}</h3>
@@ -28,7 +28,6 @@ export default {
     return {
       pathimmagineFilm : "https://image.tmdb.org/t/p/w342",
       voto: "",
-      // star: '<font-awesome-icon icon="far fa-star" />',
     }
   },
 
@@ -46,11 +45,15 @@ export default {
       // oppure usare quest npmjs: https://www.npmjs.com/package/vue-lang-code-flags
     },
 
-    vote(votoAverage) {
-        this.voto = Math.round(votoAverage / 2);
+    vote() {
+        this.voto = Math.round(this.itemFilm.vote_average / 2);
         console.log(this.voto);
-        return this.voto
+        return this.voto;
     },
+
+    noVote(){
+      return (5 - this.voto);
+    }
   }
 
 }
