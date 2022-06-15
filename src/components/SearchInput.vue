@@ -1,7 +1,6 @@
 <template>
     <div>
         <button @click.prevent="resetSearch()">Clear</button>
-        <button @click.prevent="$emit('mySearch', inputText)">Search</button>
         <input type="text" placeholder="Search" v-model="inputText" @keyup.enter="$emit('mySearch', inputText)" >
     </div>
 </template>
@@ -19,13 +18,13 @@ export default {
     methods: {
         resetSearch(){
             this.inputText = "";
-            this.$emit('mySearch', this.inputText);
         }
     }
 }
 </script>
 
 <style  scoped lang="scss">
-
-    
+    button {
+        margin-right: 10px;
+    }
 </style>
