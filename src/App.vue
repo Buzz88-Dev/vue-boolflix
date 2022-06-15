@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import MoviesFilm from './components/Movies.vue'
+import MoviesFilm from './components/MainMovies.vue'
 
 export default {
   name: 'App',
