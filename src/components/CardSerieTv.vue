@@ -1,6 +1,8 @@
 <template>
   <div class="card"> 
-    <img :src="pathimmagineFilm + itemSerieTV.poster_path" :alt="itemSerieTV.original_title">
+    <!-- <img :src="pathimmagineSerieTV + itemSerieTV.poster_path" :alt="itemSerieTV.original_title"> -->
+    <img :src="pathimmagineSerieTV + itemSerieTV.backdrop_path" :alt="itemSerieTV.original_title">
+
     <div class="text">
       <h3>Titolo Originale: {{ itemSerieTV.original_title }}</h3>
       <h3>Titolo: {{ itemSerieTV.title }}</h3>
@@ -19,7 +21,7 @@ export default {
 
   data() {
     return {
-      pathimmagineFilm : "https://image.tmdb.org/t/p/w342",
+      pathimmagineSerieTV : "https://image.tmdb.org/t/p/w342",
     }
   },
 

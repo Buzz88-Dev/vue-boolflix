@@ -4,10 +4,10 @@
       <SearchInput @mySearch="searchMovie"/>
     </div>
     <div class="movies_list">
-        <CardFilm v-for="(film, index) in detailsMovies" :key="index" :itemFilm="film" />
+        <CardFilm v-for="(film) in detailsMovies" :key="film.id" :itemFilm="film" />
     </div>
     <div class="serieTV_list">
-        <CardSerieTv v-for="(serieTV, i) in detailsSerieTV" :key="i" :itemSerieTV="serieTV" />
+        <CardSerieTv v-for="(serieTV) in detailsSerieTV" :key="serieTV.id" :itemSerieTV="serieTV" />
     </div>
   </div>
 </template>
@@ -36,13 +36,15 @@ export default {
           detailsSerieTV: [],
           userText: "",
           originalLanguagesArray: [],
+          votesArray: [],
       }
   },
 
   created(){
     this.getListMovies(),
     this.getListSerieTV(),
-    this.searchOriginalLanguage()
+    this.searchOriginalLanguage(),
+    this.searchVotes()
   },
 
   methods: {
@@ -58,6 +60,8 @@ export default {
             console.log(this.detailsMovies);
             this.searchOriginalLanguage();
             console.log(this.searchOriginalLanguage());
+            this.searchVotes();
+            console.log(this.searchVotes());
           }).catch(error => {
           console.log("Error", error);
           })
@@ -73,8 +77,6 @@ export default {
           .then(result => {
             this.detailsSerieTV = result.data.results;
             console.log(this.detailsSerieTV);
-            this.searchOriginalLanguage();
-            console.log(this.searchOriginalLanguage());
           }).catch(error => {
           console.log("Error", error);
           })
@@ -88,6 +90,7 @@ export default {
        this.getListSerieTV();
     },
 
+    // mi creo una funzione solo per vedere quali sono le lingue che stampo
     searchOriginalLanguage(){
       this.detailsMovies.forEach(element => {
         if (!this.originalLanguagesArray.includes(element.original_language)){
@@ -95,6 +98,16 @@ export default {
         }
       });
       return this.originalLanguagesArray;
+    },
+
+    // mi creo una funzione solo per vedere i voti
+    searchVotes(){
+      this.detailsMovies.forEach(element => {
+        if (!this.votesArray.includes(element.vote_average)){
+          this.votesArray.push(element.vote_average);
+        }
+      });
+      return this.votesArray;
     }
   },
 
