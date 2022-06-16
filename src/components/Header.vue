@@ -5,7 +5,7 @@
         </div>
         <div>
             <!-- <button @click.prevent="resetSearch()">Clear</button> -->
-            <input type="text" placeholder="Search" v-model="inputText" @keyup.enter="$emit('mySearch', inputText)" >
+            <input type="text" placeholder="Search Movie/SerieTV" v-model="inputText" @keyup.enter="$emit('mySearch', inputText)" >
         </div>       
     </div>
 </template>

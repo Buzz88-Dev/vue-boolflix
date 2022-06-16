@@ -1,7 +1,7 @@
 <template>
   <div class="card" v-on:mouseover="cardHover = true" v-on:mouseleave="cardHover = false">
     <div :class="cardHover ? 'd-none' : ''">
-      <img :src="pathimmagineFilm + itemFilm.backdrop_path" :alt="itemFilm.original_title">
+      <img :src="pathimmagineFilm + itemFilm.poster_path" :alt="itemFilm.original_title">
     </div>
   
     <div class="text" :class="!cardHover ? 'd-none' : ''">
@@ -40,10 +40,6 @@ export default {
     }
   },
 
-  // mounted(){
-  //   console.log(this.voto)
-  // },
-
   props: {
       itemFilm: Object,
   },
@@ -76,8 +72,8 @@ export default {
 <style scoped lang="scss">
 
   .card {
-    width: calc((100% / 3) - 20px);
-    position: relative;;
+    width: calc((100% / 4) - 20px);
+    position: relative;
     background-color: black;
     margin: 40px 10px;
 
@@ -90,7 +86,7 @@ export default {
         position: absolute;
         display: flex;
         flex-direction: column;
-        padding: 10px 5px;
+        padding: 40px 15px;
         width: 100%;
         height: 100%;
         top: 0;
@@ -98,21 +94,13 @@ export default {
         color: white;
         overflow-y: scroll; 
 
-        ::-webkit-scrollbar {
-          width: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-          background: grey; 
-        }
-
         .d-none {
           display: none;
         }
 
 
         h5, h6, strong {
-          font-size: 12px;
+          font-size: 15px;
         }
 
         h5 {
@@ -126,7 +114,7 @@ export default {
 
 
           .language_image {
-            width: 5%;
+            width: 10%;
             height: auto;
             margin-left: 5px;
             font-size: 5px;

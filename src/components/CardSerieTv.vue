@@ -1,19 +1,29 @@
 <template>
-  <div class="card"> 
-    <!-- <img :src="pathimmagineSerieTV + itemSerieTV.poster_path" :alt="itemSerieTV.original_title"> -->
-    <img :src="pathimmagineSerieTV + itemSerieTV.backdrop_path" :alt="itemSerieTV.original_title">
-    <div class="text">
-      <h3>Titolo Originale: {{ itemSerieTV.original_title }}</h3>
-      <h3>Titolo: {{ itemSerieTV.title }}</h3>
-      <h3>Voto: {{itemSerieTV.vote_average}}</h3>
+  <div class="card" v-on:mouseover="cardHover = true" v-on:mouseleave="cardHover = false"> 
+    <div :class="cardHover ? 'd-none' : ''">
+      <!-- <img :src="pathimmagineSerieTV + itemSerieTV.poster_path" :alt="itemSerieTV.original_title"> -->
+      <img :src="pathimmagineSerieTV + itemSerieTV.poster_path" :alt="itemSerieTV.original_title">
+    </div>
+    
+    <div class="text" :class="!cardHover ? 'd-none' : ''">
+
+      <h6>Titolo Originale: {{ itemSerieTV.original_title }}</h6>
+      <h5>Titolo: {{ itemSerieTV.title }}</h5>
+
       <span >
-            <font-awesome-icon v-for="(element, i) in vote()" :key="i + 'y'" icon="fa-solid fa-star" />
-            <font-awesome-icon v-for="(element, index) in noVote()" :key="index + 'x'" icon="far fa-star" />
-            <!-- per evitare errori nella console aggiungo una stringa alla key -->
+        <strong>Voto: </strong>
+        <font-awesome-icon v-for="(element, i) in vote()" :key="i + 'y'" icon="fa-solid fa-star" />
+        <font-awesome-icon v-for="(element, index) in noVote()" :key="index + 'x'" icon="far fa-star" />
+         <!-- per evitare errori nella console aggiungo una stringa alla key -->
       </span>
+
+      <h5 class="overview">Overview: {{ itemSerieTV.overview }}</h5>
+
       <div class="language">
-          <h3>Lingua originale: {{itemSerieTV.original_language}}</h3>
-          <img :src="flags(this.itemSerieTV.original_language)">
+        <h5>Lingua originale: </h5>
+          <div class="language_image">
+            <img :src="flags(this.itemSerieTV.original_language)">
+          </div>  
       </div>
     </div> 											
   </div>
@@ -27,6 +37,7 @@ export default {
     return {
       pathimmagineSerieTV : "https://image.tmdb.org/t/p/w342",
       votoSerieTV: "",
+      cardHover: false,
     }
   },
 
@@ -60,34 +71,55 @@ export default {
 <style scoped lang="scss">
 
   .card {
-    width: calc((100% /4) - 40px);
-    margin: 0  20px 0px 20px;
-
-    img {
-      width: 100%;
-      margin: auto;
-    }
-  }
-  .text {
-    display: flex;
-    flex-direction: column;
-    padding: 20px 0px;
-
-    h3 {
-      font-size: 12px;
-      padding-top: 10px;
-    }
-
-    p {
-      font-size: 10px;
-    }
-
-    .language {
-      display: flex;
+    width: calc((100% / 4) - 20px);
+    position: relative;
+    background-color: black;
+    margin: 40px 10px;
 
       img {
-        width: 10%;
+        width: 100%;
+        height: 100%;
       }
-    }
+
+      .text {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 15px;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        color: white;
+        overflow-y: scroll; 
+
+        .d-none {
+          display: none;
+        }
+
+
+        h5, h6, strong {
+          font-size: 15px;
+        }
+
+        h5 {
+          margin: 5px 0px;
+        }
+
+        .language {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+
+
+          .language_image {
+            width: 10%;
+            height: auto;
+            margin-left: 5px;
+            font-size: 5px;
+          }
+        }
+      }
+
   }
 </style>
