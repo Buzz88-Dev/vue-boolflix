@@ -2,11 +2,15 @@
   <div class="card"> 
     <!-- <img :src="pathimmagineSerieTV + itemSerieTV.poster_path" :alt="itemSerieTV.original_title"> -->
     <img :src="pathimmagineSerieTV + itemSerieTV.backdrop_path" :alt="itemSerieTV.original_title">
-
     <div class="text">
       <h3>Titolo Originale: {{ itemSerieTV.original_title }}</h3>
       <h3>Titolo: {{ itemSerieTV.title }}</h3>
       <h3>Voto: {{itemSerieTV.vote_average}}</h3>
+      <span >
+            <font-awesome-icon v-for="(element, i) in vote()" :key="i + 'y'" icon="fa-solid fa-star" />
+            <font-awesome-icon v-for="(element, index) in noVote()" :key="index + 'x'" icon="far fa-star" />
+            <!-- per evitare errori nella console aggiungo una stringa alla key -->
+      </span>
       <div class="language">
           <h3>Lingua originale: {{itemSerieTV.original_language}}</h3>
           <img :src="flags(this.itemSerieTV.original_language)">
@@ -22,6 +26,7 @@ export default {
   data() {
     return {
       pathimmagineSerieTV : "https://image.tmdb.org/t/p/w342",
+      votoSerieTV: "",
     }
   },
 
@@ -36,6 +41,15 @@ export default {
       } else {
         return require('../assets/flag/vuota.png')
       }
+    },
+
+    vote() {
+        this.votoSerieTV = Math.round(this.itemSerieTV.vote_average / 2);
+        return this.votoSerieTV;
+    },
+
+    noVote(){
+      return (5 - this.votoSerieTV);
     }
   }
 

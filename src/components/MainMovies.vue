@@ -1,13 +1,15 @@
 <template>
-  <div class="container">
+  <div>
     <div class="search_input">
-      <SearchInput @mySearch="searchMovie"/>
+      <HeaderInput @mySearch="searchMovie"/>
     </div>
-    <div class="movies_list">
+    <div class="container_main">
+      <div class="movies_list">
         <CardFilm v-for="(film) in detailsMovies" :key="film.id" :itemFilm="film" />
-    </div>
-    <div class="serieTV_list">
+      </div>
+      <div class="serieTV_list">
         <CardSerieTv v-for="(serieTV) in detailsSerieTV" :key="serieTV.id" :itemSerieTV="serieTV" />
+      </div>
     </div>
   </div>
 </template>
@@ -16,15 +18,14 @@
 import axios from "axios";
 import CardFilm from './CardFilm.vue';
 import CardSerieTv from './CardSerieTv.vue';
-
-import SearchInput from './SearchInput.vue';
+import HeaderInput from './Header.vue';
 
 export default {
   name: 'MoviesFilm',
 
   components: {
     CardFilm,
-    SearchInput,
+    HeaderInput,
     CardSerieTv,
   },
   
@@ -58,10 +59,6 @@ export default {
           .then(result => {
             this.detailsMovies = result.data.results;
             console.log(this.detailsMovies);
-            this.searchOriginalLanguage();
-            console.log(this.searchOriginalLanguage());
-            this.searchVotes();
-            console.log(this.searchVotes());
           }).catch(error => {
           console.log("Error", error);
           })
@@ -77,6 +74,10 @@ export default {
           .then(result => {
             this.detailsSerieTV = result.data.results;
             console.log(this.detailsSerieTV);
+            this.searchOriginalLanguage();
+            console.log(this.searchOriginalLanguage());
+            this.searchVotes();
+            console.log(this.searchVotes());
           }).catch(error => {
           console.log("Error", error);
           })
@@ -117,21 +118,21 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
-  .container {
-    background-color: rgb(33, 39, 65);
-    padding-top: 40px;
-    padding-bottom: 20px;
+  .search_input {
+    background-color: black;
   }
 
-  .search_input {
-    text-align: center;
-  }
-  .movies_list, .serieTV_list {
-    width: 80%;
+  .container_main {
+    padding: 40px 0px;
+    background-color: grey;
+
+
+    .movies_list, .serieTV_list {
+    width: 90%;
+    margin: auto;
     display: flex;
     flex-wrap: wrap;
-    margin: auto;
-    color: white;
+  }
   }
 
 </style>

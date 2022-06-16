@@ -1,21 +1,29 @@
 <template>
-  <div class="card"> 
-    <!-- <img :src="pathimmagineFilm + itemFilm.poster_path" :alt="itemFilm.original_title"> -->
-    <img :src="pathimmagineFilm + itemFilm.backdrop_path" :alt="itemFilm.original_title">
-    <div class="text">
-      <h3>Titolo Originale: {{ itemFilm.original_title }}</h3>
-      <h3>Titolo: {{ itemFilm.title }}</h3>
-      <h3>Voto: {{itemFilm.vote_average}}</h3>
-      <!-- <h3>Voto: {{vote(this.itemFilm.vote_average)}}</h3> -->
-      <span >
-            <font-awesome-icon v-for="(element, i) in vote()" :key="i + 'y'" icon="fa-solid fa-star" />
-            <font-awesome-icon v-for="(element, index) in noVote()" :key="index + 'x'" icon="far fa-star" />
-            <!-- per evitare errori nella console aggiungo una stringa alla key -->
+  <div class="card" v-on:mouseover="cardHover = true" v-on:mouseleave="cardHover = false">
+    <div :class="cardHover ? 'd-none' : ''">
+      <img :src="pathimmagineFilm + itemFilm.backdrop_path" :alt="itemFilm.original_title">
+    </div>
+  
+    <div class="text" :class="!cardHover ? 'd-none' : ''">
+
+      <h6>Titolo Originale: {{ itemFilm.original_title }}</h6>
+      <h5>Titolo: {{ itemFilm.title }}</h5>
+
+      <span>
+        <strong>Voto: </strong>
+        <font-awesome-icon v-for="(element, i) in vote()" :key="i + 'n'" icon="fa-solid fa-star" />
+        <font-awesome-icon v-for="(element, index) in noVote()" :key="index" icon="far fa-star" />
       </span>
+  
+      <h5 class="overview">Overview: {{ itemFilm.overview }}</h5>
+
       <div class="language">
-          <h3>Lingua originale: {{itemFilm.original_language}}</h3>
+        <h5>Lingua originale: </h5>
+        <div class="language_image">
           <img :src="flags(this.itemFilm.original_language)">
+        </div>       
       </div>
+
     </div> 											
   </div>
 </template>
@@ -27,9 +35,14 @@ export default {
   data() {
     return {
       pathimmagineFilm : "https://image.tmdb.org/t/p/w342",
-      voto: "",
+      votoFilm: "",
+      cardHover: false,
     }
   },
+
+  // mounted(){
+  //   console.log(this.voto)
+  // },
 
   props: {
       itemFilm: Object,
@@ -46,14 +59,14 @@ export default {
     },
 
     vote() {
-        this.voto = Math.round(this.itemFilm.vote_average / 2);
-        console.log(this.voto);
-        return this.voto;
+        this.votoFilm = Math.round(this.itemFilm.vote_average / 2);
+        return this.votoFilm;
     },
 
     noVote(){
-      return (5 - this.voto);
-    }
+      return (5 - this.votoFilm);
+    },
+
   }
 
 }
@@ -63,38 +76,64 @@ export default {
 <style scoped lang="scss">
 
   .card {
-    width: calc((100% /4) - 40px);
-    margin: 0  20px 0px 20px;
-
-    img {
-      width: 100%;
-      margin: auto;
-    }
-  }
-  .text {
-    display: flex;
-    flex-direction: column;
-    padding: 20px 0px;
-
-    h3 {
-      font-size: 12px;
-      padding-top: 10px;
-    }
-
-    p {
-      font-size: 10px;
-    }
-
-    span {
-      color: white;
-    }
-
-    .language {
-      display: flex;
+    width: calc((100% / 3) - 20px);
+    position: relative;;
+    background-color: black;
+    margin: 40px 10px;
 
       img {
-        width: 10%;
+        width: 100%;
+        height: 100%;
       }
-    }
+
+      .text {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        padding: 10px 5px;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        color: white;
+        overflow-y: scroll; 
+
+        ::-webkit-scrollbar {
+          width: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: grey; 
+        }
+
+        .d-none {
+          display: none;
+        }
+
+
+        h5, h6, strong {
+          font-size: 12px;
+        }
+
+        h5 {
+          margin: 5px 0px;
+        }
+
+        .language {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+
+
+          .language_image {
+            width: 5%;
+            height: auto;
+            margin-left: 5px;
+            font-size: 5px;
+          }
+        }
+      }
+
   }
+
 </style>
